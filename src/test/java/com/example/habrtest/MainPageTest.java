@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
+import java.util.ArrayList;
 
 public class MainPageTest {
     private WebDriver driver;
@@ -39,10 +40,25 @@ public class MainPageTest {
         WebElement selectorMenu = driver.findElement(By.cssSelector("svg[class='tm-svg-img tm-header__icon tm-header__icon_dropdown']"));
         selectorMenu.click();
 
-        WebElement selectorQA = driver.findElement(By.xpath("//*[contains(text(), 'Q&A')]"));
+        WebElement selectorQA = driver.findElement(By.xpath("//a[@class = 'tm-our-projects__item'][2]"));
         selectorQA.click();
 
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
         assertTrue(driver.findElement(By.xpath("//*[contains(text(), 'Задать вопрос')]")).isDisplayed(), "Не туда тыкнул");
     }
+
+
+
+    @Test
+    public void loginHabr() {
+
+   WebElement selectorEnter = driver.findElement(By.cssSelector("button[class='tm-header-user-menu__login btn btn_solid btn_small']"));
+   selectorEnter.click();
+
+    WebElement resetPassword = driver.findElement(By.xpath("//a[@class='form__remind-password-link']['Забыли пароль?']"));
+    resetPassword.click();
+
+}
 
 }
